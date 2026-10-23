@@ -1,0 +1,485 @@
+body {
+    animation: bodyWhite ease 2s;
+    font-family: "Inconsolata";
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    color: white; /* Text color */
+    text-shadow: 
+        -1px -1px 0 #000,  
+        0px -1px 0 #000,  
+        1px -1px 0 #000,
+        1px  0px 0 #000,
+        1px  1px 0 #000,
+        0px  1px 0 #000,
+        -1px  1px 0 #000,
+        -1px  0px 0 #000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-in {
+    opacity: 1;
+}
+
+canvas {
+    display: block;
+}
+
+@keyframes bgScroll {
+  0% {
+    background-position : 0px 0px
+  }
+  100% {
+    background-position : -128px 64px
+  }
+
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.scrollingBG {
+  background-color: #000;
+  display:flex;
+  width:100vw;
+  height:100vh;
+  background-image:url("bgTile2026.png");
+  background-repeat: repeat;
+  position: relative;
+  animation: bgScroll 2s linear infinite, fadeIn 5s cubic-bezier(0.78, 0, 0.631, 0.994) forwards;
+  filter: brightness(80%);
+  z-index: -5
+}
+
+#header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    width: 85vw; /* Set a maximum width for the header */
+    margin: 0 calc(auto + 24px); /* Center the header horizontally */
+    transition:top 0.3s cubic-bezier(0,-0.01,.47,1)
+    ;
+}
+
+#header.at_top {
+    top: 15%;
+}
+
+#header p {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative; /* Add relative positioning */
+    /* margin-bottom: 30px; /* Add some space below the <p> */
+}
+#links {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    background-color: #00000044;
+    padding: 8px;
+    z-index: 1;
+    max-width: 80%; /* Set a maximum width for the header */
+    margin: 0 calc(auto + 24px); /* Center the header horizontally */
+    border-style: solid none solid none;
+    border-color: #ffffff;
+    border-width: 2px;
+    border-radius: 5px;
+}
+#container-links {
+    text-align: center;
+    color: #fff;
+    background-color: #00000044;
+    padding: 8px;
+    z-index: 1;
+    margin: 0 calc(auto + 24px); /* Center the header horizontally */
+    border-style: solid none solid none;
+    border-color: #ffffff;
+    border-width: 2px;
+}
+#name {
+    gap: 0px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#name h1 {
+    font-size: 2.5em;
+    margin-top: 15px;
+}
+#logo {
+    max-height: 100%;
+    height: auto;
+    display: inline-block;
+    margin-right: -5px;
+}
+#top_border {
+    animation: slideOutAnim cubic-bezier(0.4, 0, 0.2, 1) 3.5s;
+    animation-fill-mode: backwards;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0;
+    z-index: 3;
+    margin-top: 0px;
+}
+#bottom_border {
+    animation: slideOutAnim cubic-bezier(0.4, 0, 0.2, 1) 3.5s;
+    animation-fill-mode: backwards;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0;
+    z-index: 3;
+    margin-bottom: 0px;
+    transform: translate(0%, calc(100vh - 100%));
+}
+@keyframes slideOutAnim {
+    0% {
+        background-color: #000;
+        opacity: 1;
+        height: 50%
+    }
+    30% {
+        background-color: #fff;
+        opacity: 1;
+        height: 50%;
+    }
+    100% {
+        opacity: 1;
+        height: 0%;
+    }
+}
+
+.skip-border-anim {
+    animation: none !important;
+    opacity: 0 !important;
+    height: 0% !important;
+}
+
+img { /* remove blur on pixelated, courtesy of SO */
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;                 /* Universal support since 2021   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
+#header p span.nav {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 3px;
+    z-index: 2;
+    /* Removes Highlight */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#header p span.nav::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    color: #fff;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+#header p span.nav:nth-child(1)::before {
+    background-color: #ff8000; /* Unique color for the first dropdown */
+}
+
+#header p span.nav:nth-child(3)::before {
+    background-color: #00ec18; /* Unique color for the second dropdown */
+}
+
+#header p span.nav:nth-child(5)::before {
+    background-color: #b800ff; /* Unique color for the third dropdown */
+}
+
+#header p span.nav:nth-child(7)::before {
+    background-color: #d63131; /* Unique color for the third dropdown */
+}
+
+#header p span.nav:nth-child(1).active {
+    background-color: #ff8000; /* Unique color for the first dropdown */
+}
+
+#header p span.nav:nth-child(3).active {
+    background-color: #00ec18; /* Unique color for the second dropdown */
+}
+
+#header p span.nav:nth-child(5).active {
+    background-color: #b800ff; /* Unique color for the third dropdown */
+}
+
+#header p span.nav:nth-child(7).active {
+    background-color: #d63131; /* Unique color for the third dropdown */
+}
+
+#header p span.nav:hover:nth-child(odd)::before,
+#header p span.nav.active:nth-child(odd)::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.dropdown-content {
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    background-color: rgba(5, 5, 5, 0.75);
+    color: #fff;
+    padding: 10px;
+    z-index: 100;
+    width: calc(100% - 20px);
+    top: 0;
+    text-align: center;
+    transform: translateY(calc(37.33 * 3px));
+    opacity: 0;
+    transition: 
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out
+    ;
+    z-index: 1;
+    max-height: 75vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #fff;
+}
+
+
+.dropdown-content.hidden {
+    transform: translateY(calc(37.33 * 4px));
+    opacity: 1;
+    pointer-events: auto;
+    display: block;
+}
+
+.latestDate {
+    display: flex;
+    justify-content: space-between;
+    gap:5px;
+    align-items: center;
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    background-color: #0007;
+    color: white;
+    text-align: right;
+    padding: 5px 8px;
+    border-radius:5px;
+    border:1px solid #4448;
+}
+
+.latestDate img {
+    object-fit: cover;
+}
+
+a:link {
+    color: #e38314;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: #a731d6;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: #ffffff;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: #1ed630;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.highlight-container {
+    display: flex;
+    flex-direction: column; /* explicitly vertical */
+    /*gap: 20px;*/
+    padding: 20px;
+    border-radius: 5px;
+
+    /* remove all constraints that imply wrapping or scrolling */
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+
+    background-color: #111d;
+    border: 1px solid #333;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto; /* Scrollbar if content exceeds width */
+    /*max-height: calc(100vh - 37.33 * 4px);*/
+    background-color: #222222ce;
+    border-style: solid;
+    border-color: #555;
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    border: 2px solid #ccc;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.box img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.box p {
+    text-align: center;
+    background-color: #111;
+    margin: 0px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #ffffff88;
+    border-width: 2px;
+    padding: 5px;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 800px) {
+    /* Adjust styles for smaller screens */
+    #name {
+        font-size: smaller;
+    }
+    #logo {
+        margin-top: 30px;
+        margin-bottom: 10px;
+        height: 48px;
+    }
+    #header {
+        transform: translate(-50%, -96px);
+    }
+}
+
+@media (min-width: 800px) {
+    /* Adjust styles for bigger screens */
+    #logo {
+        margin-top: 30px;
+        margin-bottom: 10px;
+        height: 72px;
+    }
+    #header {
+        transform: translate(-50%, -128px);
+    }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 750px) {
+    /* Stack spans and remove the "|" */
+    #header p span.nav {
+        display: block; /* Stack spans vertically on mobile */
+    }
+
+    /* Hide the "|" on mobile */
+    #header p span.nav:nth-child(even) {
+        display: none; /* Hide the manually added "|" */
+    }
+
+    /* Relative position for mobile */
+    .dropdown-content {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: -10px;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(calc(35 * 4px + 40px));
+        transition: 
+            transform 0.3s ease-in-out,
+            opacity 0.3s ease-in-out;
+        max-height: 65vh;
+    }
+
+    /* Shown state for dropdowns on mobile */
+    .dropdown-content.hidden {
+        display: block;
+        opacity: 1;
+        transform: translateY(calc(35 * 5px + 40px));
+        pointer-events: auto;
+    }
+}
+
+
+/* Styles for larger screens, keeping "|" and absolute dropdowns */
+@media screen and (min-width: 600px) {
+    #header p span.nav + span.nav {
+        display: inline-block; /* Show the "|" between spans */
+    }
+
+    #header p span.nav:last-child::after {
+        content: ''; /* Remove "|" after the last span */
+    }
+
+    .dropdown-content {
+        position: absolute; /* Keep dropdown position absolute on larger screens */
+        transform: translateY(calc(35 * 4px));
+        opacity: 0;
+    }
+
+    .dropdown-content.hidden {
+        transform: translateY(calc(35 * 5px));
+        opacity: 1;
+    }
+}
+
+/* lemonlogs */

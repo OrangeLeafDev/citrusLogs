@@ -1,0 +1,29 @@
+<%- include('header') %>
+
+<% if (!isEmbedded) { %>
+    <span>
+        <a href="/">hub</a> / <a href="/<%= post.category %>"><%= post.categoryName %></a>
+    </span>
+<% } %>
+
+<div class="banner-title" id="center">
+    <div class="post-header">
+        <div class="text-title">
+            <h1><%= post.title %></h1>
+            <div class="contents">
+                <p><%= post.description %></p>
+            </div>
+        </div>
+        <div class="post-meta">
+            <p><%= post.author %></p>
+            <p><%= post.date %></p>
+        </div>
+    </div>
+    <img src="<%= post.thumbnail %>" alt="Post thumbnail" class="attachment-image" onerror="this.style.display='none';">
+</div>
+
+<div class="contents">
+    <%- post.htmlContent %>
+</div>
+
+<%- include('footer') %>

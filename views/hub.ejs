@@ -1,0 +1,41 @@
+<%- include('header') %>
+
+<h1>notice</h1>
+<div class="contents">
+    <p>Welcome to citrusLogs! Select a category below to browse logs.</p>
+</div>
+<h1>about</h1>
+<div class="contents">
+    <p>Welcome to citrusLogs! a dumping ground for... logs about anything! from stories, lore, and worldbuilding, to game reviews and personal notes among the like!</p>
+</div>
+
+<h1>categories</h1>
+
+<% for (const groupName of ['general','projects']) { %>
+    <h2><%= groupName %></h2>
+    <div class="categbar-container">
+        <% for (const categ of categories.filter(c => c.group === groupName)) { %>
+            <div class="categbar">
+                <div class="image-wrapper">
+                    <img src="<%= categ.thumbnail %>" alt="<%= categ.name %> thumbnail" onerror="this.closest('.image-wrapper').style.display='none';">
+                </div>
+                <div class="text-wrapper">
+                    <a href="/<%= categ.slug %>" class="invis-link">
+                        <h1><%= categ.name %></h1>
+                    </a>
+                    <a><%= categ.description %></a>
+                </div>
+                <div class="meta-wrapper">
+                    Latest: 
+                    <% if (categ.latestPost) { %>
+                        <a href="/<%= categ.slug %>/<%= categ.latestPost.slug %>"><%= categ.latestPost.title %></a>
+                    <% } else { %>
+                        <span>None yet</span>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+<% } %>
+
+<%- include('footer') %>

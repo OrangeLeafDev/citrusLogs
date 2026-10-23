@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>citrusLogs</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/posts.css">
+    <link rel="icon" href="/citruslogs.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap">
+    <script src="/index.js"></script>
+</head>
+<body style="overflow-y: auto; overflow-x: hidden;">
+    <% if (!locals.isEmbedded) { %>
+        <div class="sticky">
+            <div id="name">
+                <img id="logo" src="/citruslogs_logo2.png" style="display: block; margin-left: auto; margin-right: auto;">
+            </div>
+            <hr>
+            <nav>
+                <a href="/">homepage</a> | <a href="/">categories</a>
+            </nav>
+        </div>
+    <% } %>
+    <div class="subbody" style="<%= locals.isEmbedded ? 'width: 100vw; border: none;' : '' %>">
