@@ -22,7 +22,7 @@ function getMeta(req, title, description, type = 'website', image = null) {
     }
     return {
         title: formattedTitle,
-        description: description || 'Welcome to citrusLogs',
+        description: description || 'Orange\'s Writing Deposit',
         type: type,
         image: imageUrl,
         currentUrl: `${baseUrl}${req.originalUrl}`
