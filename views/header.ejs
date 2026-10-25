@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>citrusLogs</title>
+    <title><%= meta.title %></title>
+
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/posts.css">
     <link rel="icon" href="/citruslogs.ico">
@@ -11,6 +12,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap">
+
+    <meta name="description" content="<%= meta.description %>">
+
+    <meta property="og:type" content="<%= meta.type %>">
+    <meta property="og:title" content="<%= meta.title %>">
+    <meta property="og:description" content="<%= meta.escription %>">
+    <meta property="og:image" content="<%= meta.image %>">
+    <meta property="og:url" content="<%= meta.currentUrl %>">
     <script src="/index.js"></script>
 </head>
 <body style="overflow-y: auto; overflow-x: hidden;">

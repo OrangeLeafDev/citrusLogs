@@ -1,6 +1,10 @@
 {
   "type": "module",
   "dependencies": {
+    "@milkdown/core": "^7.22.3",
+    "@milkdown/preset-commonmark": "^7.22.3",
+    "@milkdown/preset-gfm": "^7.22.3",
+    "@milkdown/theme-nord": "^7.22.3",
     "ejs": "^7.0.2",
     "express": "^5.3.0",
     "gray-matter": "^4.0.3",

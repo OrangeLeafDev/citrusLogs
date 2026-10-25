@@ -6,10 +6,24 @@ import { marked } from 'marked';
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use((req, res, next) => {
+    res.locals.isEmbedded = req.query.embed === 'true';
+    next();
+});
+
+function getMeta(req, title, description, type = 'website', image = null) {
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    return {
+        title: title ? `${title} - citrusLogs` : 'citrusLogs',
+        description: description || 'Welcome to citrusLogs',
+        type: type,
+        image: image ? image : `${baseUrl}/citruslogs_logo2.png`,
+        currentUrl: `${baseUrl}${req.originalUrl}`
+    };
+}
 
 const CONTENT_DIR = './content';
 
-// Reads all category folders and their posts in one pass
 async function getContentTree() {
     const categories = [];
     const allPosts = [];
@@ -23,8 +37,6 @@ async function getContentTree() {
             const catSlug = entry.name;
             const catPath = `${CONTENT_DIR}/${catSlug}`;
             const files = await fs.readdir(catPath);
-
-            // 1. Parse Category Metadata from _index.md (if it exists)
             let catData = { name: catSlug, group: 'general', description: '', thumbnail: '#' };
             let catHtml = '';
 
@@ -40,8 +52,6 @@ async function getContentTree() {
                 };
                 catHtml = marked.parse(parsedCat.content);
             }
-
-            // 2. Parse all other .md files in this folder as Posts
             const catPosts = [];
             for (const file of files) {
                 if (!file.endsWith('.md') || file === '_index.md') continue;
@@ -57,7 +67,7 @@ async function getContentTree() {
                     url: `/${catSlug}/${postSlug}`,
                     title: data.title || postSlug,
                     description: data.description || '',
-                    author: data.author || 'orangeleaf36',
+                    author: data.author || 'unknown',
                     date: data.date || 'Unknown Date',
                     thumbnail: data.thumbnail || null,
                     htmlContent: marked.parse(content)
@@ -66,8 +76,6 @@ async function getContentTree() {
                 catPosts.push(postObj);
                 allPosts.push(postObj);
             }
-
-            // Sort posts inside this category newest-first
             catPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             categories.push({
@@ -85,25 +93,33 @@ async function getContentTree() {
     return { categories, allPosts };
 }
 
-// 1. HUB ROUTE: example.com/
 app.get('/', async (req, res) => {
     const { categories } = await getContentTree();
-    // Dynamically grab all unique category groups ('general', 'projects', 'misc', etc.)
     const groups = [...new Set(categories.map(c => c.group))];
-    res.render('hub', { categories, groups, isEmbedded: false });
+    const orderedGroups = groups.includes('general') 
+        ? ['general', ...groups.filter(g => g !== 'general')]
+        : groups;
+
+    res.render('hub', { 
+        categories, 
+        orderedGroups, 
+        meta: getMeta(req, 'Home', 'Orange\'s Writing Deposit') 
+    });
 });
 
-// 2. CATEGORY ROUTE: example.com/:category
 app.get('/:category', async (req, res) => {
     const { categories } = await getContentTree();
     const category = categories.find(c => c.slug === req.params.category);
 
     if (!category) return res.status(404).send('Category not found');
 
-    res.render('category', { category, posts: category.posts, isEmbedded: false });
+    res.render('category', { 
+        category, 
+        posts: category.posts, 
+        meta: getMeta(req, category.name, category.description, 'website', category.thumbnail) 
+    });
 });
 
-// 3. POST ROUTE: example.com/:category/:post
 app.get('/:category/:post', async (req, res) => {
     const { categories } = await getContentTree();
     const category = categories.find(c => c.slug === req.params.category);
@@ -113,10 +129,12 @@ app.get('/:category/:post', async (req, res) => {
     const post = category.posts.find(p => p.slug === req.params.post);
     if (!post) return res.status(404).send('Post not found');
 
-    const isEmbedded = req.query.embed === 'true';
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
 
-    res.render('post', { post, isEmbedded });
+    res.render('post', { 
+        post, 
+        meta: getMeta(req, post.title, post.description, 'article', post.thumbnail) 
+    });
 });
 
 app.listen(3000, () => console.log('citrusLogs running on http://localhost:3000/'));

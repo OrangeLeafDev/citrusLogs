@@ -11,7 +11,7 @@
 
 <h1>categories</h1>
 
-<% for (const groupName of ['general','projects']) { %>
+<% for (const groupName of orderedGroups) { %>
     <h2><%= groupName %></h2>
     <div class="categbar-container">
         <% for (const categ of categories.filter(c => c.group === groupName)) { %>
