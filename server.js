@@ -5,6 +5,7 @@ import fs from 'node:fs/promises';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
+
 const app = express();
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
@@ -22,11 +23,20 @@ app.use((req, res, next) => {
 
 function getMeta(req, title, description, type = 'website', image = null) {
     const protocol = req.get('x-forwarded-proto') || req.protocol;
-    const baseUrl = `${protocol}://${req.get('host')}`;
+    const host = req.get('host');
+    const baseUrl = `${protocol}://${host}`;
+
     const formattedTitle = title ? `${title} - citrusLogs` : 'citrusLogs';
-    let imageUrl = image && image !== '#' ? image : `${baseUrl}/citruslogs_logo2.png`;
-    if (imageUrl.startsWith('/')) {
-        imageUrl = `${baseUrl}${imageUrl}`;
+
+    let imageUrl = `${baseUrl}/citruslogs_logo2.png`;
+    if (image && image !== '#') {
+        if (image.startsWith('http://') || image.startsWith('https://')) {
+            imageUrl = image;
+        } else if (image.startsWith('/')) {
+            imageUrl = `${baseUrl}${image}`;
+        } else {
+            imageUrl = `${baseUrl}/${image}`;
+        }
     }
     return {
         title: formattedTitle,
