@@ -1,3 +1,5 @@
+// incase anyone's wondering about config.json, it's now being ignored and whatever's on the github page is either obsolete or deleted. haha
+
 import express from 'express';
 import fs from 'node:fs/promises';
 import matter from 'gray-matter';
@@ -6,6 +8,12 @@ import { marked } from 'marked';
 const app = express();
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
+app.use((req, res, next) => {
+    if (req.url.startsWith('/public/')) {
+        req.url = req.url.replace('/public', '');
+    }
+    next();
+});
 app.use(express.static('public'));
 app.use((req, res, next) => {
     res.locals.isEmbedded = req.query.embed === 'true';

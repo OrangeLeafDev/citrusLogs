@@ -1,0 +1,209 @@
+{
+  "main": {
+    "id": "7843e102586c50d1",
+    "type": "split",
+    "children": [
+      {
+        "id": "f361b2e06807cca0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e98e08a8f5e99105",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/game-reviews/qylyp-nfg-review.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "qylyp-nfg-review"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "019b06e6825b8839",
+    "type": "split",
+    "children": [
+      {
+        "id": "41aa23789645ccc3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ceb2f0032defc84a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "35a35ae4d570c441",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "64ef15fb77064ca4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "84aac6bd10c3e19a",
+    "type": "split",
+    "children": [
+      {
+        "id": "a6fcbe1333567362",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e5a1338a89e8ad83",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "content/game-reviews/qylyp-nfg-review.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "7da3ff9aaa8cac47",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "content/game-reviews/qylyp-nfg-review.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "a77a119c4553ebe2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "07fa4a48cca5e8f3",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "c97d14a4b0449965",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "content/game-reviews/qylyp-nfg-review.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e98e08a8f5e99105",
+  "lastOpenFiles": [
+    "content/game-reviews/_index.md",
+    "content/game-reviews/qylyp-nfg-review.md",
+    "content/from-the-roots/_index.md",
+    "content/random/_index.md",
+    "content/game-reviews/hiii.md",
+    "content/random/qylyp-nfg-review.md",
+    "content/game-reviews",
+    "content/random/hiii.md",
+    "public/images/qylyp_she.png",
+    "public/images/qylyp_nfg04.png",
+    "public/images/qylyp_nfg03.png",
+    "public/images/qylyp_nfg02.png",
+    "public/images/qylyp_nfg01.png",
+    "public/images/gb_2.png",
+    "public/images"
+  ]
+}

@@ -197,6 +197,7 @@ img.attachment-image {
 } 
 .post-meta {
     text-align: right;
+    white-space: nowrap;
 }
 @media screen and (max-width: 800px) {
     .categbar-container {
