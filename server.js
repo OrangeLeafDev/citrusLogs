@@ -5,6 +5,7 @@ import { marked } from 'marked';
 
 const app = express();
 app.set('view engine', 'ejs');
+app.set('trust proxy', true);
 app.use(express.static('public'));
 app.use((req, res, next) => {
     res.locals.isEmbedded = req.query.embed === 'true';
@@ -12,12 +13,18 @@ app.use((req, res, next) => {
 });
 
 function getMeta(req, title, description, type = 'website', image = null) {
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const protocol = req.get('x-forwarded-proto') || req.protocol;
+    const baseUrl = `${protocol}://${req.get('host')}`;
+    const formattedTitle = title ? `${title} - citrusLogs` : 'citrusLogs';
+    let imageUrl = image && image !== '#' ? image : `${baseUrl}/citruslogs_logo2.png`;
+    if (imageUrl.startsWith('/')) {
+        imageUrl = `${baseUrl}${imageUrl}`;
+    }
     return {
-        title: title ? `${title} - citrusLogs` : 'citrusLogs',
+        title: formattedTitle,
         description: description || 'Welcome to citrusLogs',
         type: type,
-        image: image ? image : `${baseUrl}/citruslogs_logo2.png`,
+        image: imageUrl,
         currentUrl: `${baseUrl}${req.originalUrl}`
     };
 }
