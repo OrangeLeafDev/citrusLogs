@@ -43,6 +43,9 @@ div.sticky {
 .contents p:nth-last-child(1) {
     margin-block-end: 0.5;
 }
+.contents img {
+    max-width: 60vw;
+}
 .categbar-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -169,7 +172,8 @@ div.sticky {
 img.attachment-image {
     justify-self: center;
     object-fit: contain;
-    max-height: 500px
+    max-height: 500px;
+    max-width: 60vw;
 }
 .banner-title .text-highlight {
     font-size: larger;
@@ -197,7 +201,6 @@ img.attachment-image {
 } 
 .post-meta {
     text-align: right;
-    white-space: nowrap;
 }
 @media screen and (max-width: 800px) {
     .categbar-container {
@@ -207,12 +210,16 @@ img.attachment-image {
         grid-template-columns: 1fr;
     }
     .subbody {width: 75vw;}
+    img.attachment-image {max-width: 70vw;}
+    .contents img {max-width: 70vw;}
 }
 @media screen and (max-width: 500px) {
     .categbar-container {
         grid-template-columns: 1fr;
     }
     .subbody {width: 85vw;}
+    img.attachment-image {max-width: 80vw;}
+    .contents img {max-width: 80vw;}
 }
 @media screen and (min-width: 1280px) {
     .categbar-container {
