@@ -32,7 +32,7 @@
     <meta name="twitter:image:alt" content="<%= meta.title %>">
     
     <link rel="alternate" type="application/json+oembed"
-  href="/api/oembed?url=<%= encodeURIComponent(meta.url) %>"
+  href="<%= meta.baseUrl %>/api/oembed?url=<%= encodeURIComponent(meta.url) %>"
   title="<%= meta.title %>" />
     <script src="/index.js"></script>
 </head>

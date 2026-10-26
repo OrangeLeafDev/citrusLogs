@@ -35,6 +35,7 @@ function getMeta(req, title, description, type = 'website', image = null, author
         image: imageUrl,
         color: "#FFA500", // Default embed color
         url: `${baseUrl}${req.originalUrl}`,
+        baseUrl: baseUrl,
         author: author
     };
 }
