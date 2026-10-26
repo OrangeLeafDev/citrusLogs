@@ -15,16 +15,25 @@
 
     <meta name="description" content="<%= meta.description %>">
     <meta name="theme-color" content="#ff8000">
-
+    
     <meta property="og:type" content="<%= meta.type %>">
     <meta property="og:title" content="<%= meta.title %>">
     <meta property="og:description" content="<%= meta.description %>">
     <meta property="og:image" content="<%= meta.image %>">
     <meta property="og:logo" content="https://logs.ctrstree.cc/citruslogs.ico">
     <meta property="og:url" content="<%= meta.currentUrl %>">
+
+    <meta name="twitter:card" content="<%= meta.image %>">
+    <meta name="twitter:site" content="logs.ctrstree.cc">
+    <meta name="twitter:creator" content="<%= meta.author %>">
+    <meta name="twitter:title" content="<%= meta.title %>">
+    <meta name="twitter:description" content="<%= meta.description %>.">
+    <meta name="twitter:image" content="<%= meta.image %>">
+    <meta name="twitter:image:alt" content="<%= meta.title %>">
+    
     <link rel="alternate" type="application/json+oembed"
-  href="/api/oembed?url=<%= encodeURIComponent(req.protocol + '://' + req.get('host') + req.originalUrl) %>"
-  title="<%- post.title %>" />
+  href="/api/oembed?url=<%= encodeURIComponent(meta.url) %>"
+  title="<%= meta.title %>" />
     <script src="/index.js"></script>
 </head>
 <body style="overflow-y: auto; overflow-x: hidden;">

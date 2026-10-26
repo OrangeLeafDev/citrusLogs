@@ -21,29 +21,21 @@ app.use((req, res, next) => {
     next();
 });
 
-function getMeta(req, title, description, type = 'website', image = null) {
-    const protocol = req.get('x-forwarded-proto') || req.protocol;
-    const host = req.get('host');
-    const baseUrl = `${protocol}://${host}`;
-
-    const formattedTitle = title ? `${title} - citrusLogs` : 'citrusLogs';
-
-    let imageUrl = `${baseUrl}/citruslogs_logo2.png`;
-    if (image && image !== '#') {
-        if (image.startsWith('http://') || image.startsWith('https://')) {
-            imageUrl = image;
-        } else if (image.startsWith('/')) {
-            imageUrl = `${baseUrl}${image}`;
-        } else {
-            imageUrl = `${baseUrl}/${image}`;
-        }
+function getMeta(req, title, description, type = 'website', image = null, author = "citrusLogs") {
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const baseUrl = `${protocol}://${req.get('host')}`;
+    let imageUrl = image || "/citruslogs_embed_banner.png";
+    if (imageUrl && !imageUrl.startsWith('http')) {
+        imageUrl = `${baseUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
     }
     return {
-        title: formattedTitle,
-        description: description || 'Orange\'s Writing Deposit',
+        title: title ? `${title} - citrusLogs` : 'citrusLogs',
+        description: description || "A post from citrusLogs.",
         type: type,
         image: imageUrl,
-        currentUrl: `${baseUrl}${req.originalUrl}`
+        color: "#FFA500", // Default embed color
+        url: `${baseUrl}${req.originalUrl}`,
+        author: author
     };
 }
 
@@ -132,9 +124,8 @@ app.get('/', async (req, res) => {
     });
 });
 
-app.get('/api/oembed', (req, res) => {
+app.get('/api/oembed', async (req, res) => {
     const targetUrl = req.query.url;
-
     if (!targetUrl) {
         return res.status(400).json({ error: 'Missing url parameter' });
     }
@@ -150,18 +141,19 @@ app.get('/api/oembed', (req, res) => {
     if (pathSegments.length < 1) {
         return res.status(404).json({ error: 'Invalid content path' });
     }
-    const category = pathSegments.length > 1 ? pathSegments[0] : null;
-    const slug = pathSegments[pathSegments.length - 1]; 
-    const postMetadata = getMeta(req, category, slug); 
+    const categorySlug = pathSegments.length > 1 ? pathSegments[0] : null;
+    const postSlug = pathSegments[pathSegments.length - 1]; 
+    const { allPosts } = await getContentTree();
+    const postMetadata = allPosts.find(p => p.category === categorySlug && p.slug === postSlug);
     if (!postMetadata) {
         return res.status(404).json({ error: 'Content not found' });
     }
     let thumbnailUrl = `${baseUrl}/citruslogs_embed_banner.png`;
-    if (postMetadata.image) {
-        if (postMetadata.image.startsWith('http')) {
-            thumbnailUrl = postMetadata.image;
+    if (postMetadata.thumbnail) {
+        if (postMetadata.thumbnail.startsWith('http')) {
+            thumbnailUrl = postMetadata.thumbnail;
         } else {
-            thumbnailUrl = `${baseUrl}${postMetadata.image.startsWith('/') ? '' : '/'}${postMetadata.image}`;
+            thumbnailUrl = `${baseUrl}${postMetadata.thumbnail.startsWith('/') ? '' : '/'}${postMetadata.thumbnail}`;
         }
     }
     const oembedData = {
@@ -170,7 +162,6 @@ app.get('/api/oembed', (req, res) => {
         provider_name: "citrusLogs", 
         provider_url: baseUrl, 
         cache_age: 86400,
-        //html: `<iframe src="${baseUrl}/${category ? category + '/' : ''}${slug}" width="800" height="450" frameborder="0" allowfullscreen></iframe>`,
         width: 800,
         height: 450,
         title: postMetadata.title,                        
@@ -210,7 +201,7 @@ app.get('/:category/:post', async (req, res) => {
 
     res.render('post', { 
         post, 
-        meta: getMeta(req, post.title, post.description, 'article', post.thumbnail) 
+        meta: getMeta(req, post.title, post.description, 'article', post.thumbnail, post.author) 
     });
 });
 
