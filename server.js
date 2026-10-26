@@ -132,6 +132,58 @@ app.get('/', async (req, res) => {
     });
 });
 
+app.get('/api/oembed', (req, res) => {
+    const targetUrl = req.query.url;
+
+    if (!targetUrl) {
+        return res.status(400).json({ error: 'Missing url parameter' });
+    }
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const baseUrl = `${protocol}://${req.get('host')}`;
+    let parsedUrl;
+    try {
+        parsedUrl = new URL(targetUrl);
+    } catch (e) {
+        return res.status(400).json({ error: 'Invalid URL format' });
+    }
+    const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
+    if (pathSegments.length < 1) {
+        return res.status(404).json({ error: 'Invalid content path' });
+    }
+    const category = pathSegments.length > 1 ? pathSegments[0] : null;
+    const slug = pathSegments[pathSegments.length - 1]; 
+    const postMetadata = getMeta(req, category, slug); 
+    if (!postMetadata) {
+        return res.status(404).json({ error: 'Content not found' });
+    }
+    let thumbnailUrl = `${baseUrl}/citruslogs_embed_banner.png`;
+    if (postMetadata.image) {
+        if (postMetadata.image.startsWith('http')) {
+            thumbnailUrl = postMetadata.image;
+        } else {
+            thumbnailUrl = `${baseUrl}${postMetadata.image.startsWith('/') ? '' : '/'}${postMetadata.image}`;
+        }
+    }
+    const oembedData = {
+        version: "1.0",
+        type: "rich", 
+        provider_name: "citrusLogs", 
+        provider_url: baseUrl, 
+        cache_age: 86400,
+        //html: `<iframe src="${baseUrl}/${category ? category + '/' : ''}${slug}" width="800" height="450" frameborder="0" allowfullscreen></iframe>`,
+        width: 800,
+        height: 450,
+        title: postMetadata.title,                        
+        author_name: postMetadata.author || "citrusLogs", 
+        color: 16744448,
+        author_url: baseUrl,             
+        thumbnail_url: thumbnailUrl,
+        thumbnail_width: 1200, 
+        thumbnail_height: 630
+    };
+    res.json(oembedData);
+});
+
 app.get('/:category', async (req, res) => {
     const { categories } = await getContentTree();
     const category = categories.find(c => c.slug === req.params.category);
