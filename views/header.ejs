@@ -22,6 +22,9 @@
     <meta property="og:image" content="<%= meta.image %>">
     <meta property="og:logo" content="https://logs.ctrstree.cc/citruslogs.ico">
     <meta property="og:url" content="<%= meta.currentUrl %>">
+    <link rel="alternate" type="application/json+oembed"
+  href="/api/oembed?url=<%= encodeURIComponent(req.protocol + '://' + req.get('host') + req.originalUrl) %>"
+  title="<%- post.title %>" />
     <script src="/index.js"></script>
 </head>
 <body style="overflow-y: auto; overflow-x: hidden;">
