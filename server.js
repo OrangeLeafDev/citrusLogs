@@ -139,22 +139,47 @@ app.get('/api/oembed', async (req, res) => {
         return res.status(400).json({ error: 'Invalid URL format' });
     }
     const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
-    if (pathSegments.length < 1) {
-        return res.status(404).json({ error: 'Invalid content path' });
+    const { categories, allPosts } = await getContentTree();
+    let metadata = null;
+    if (pathSegments.length === 0) {
+        metadata = {
+            title: "Orange's Writing Deposit",
+            author: "citrusLogs",
+            thumbnail: null
+        };
+    } 
+    else if (pathSegments.length === 1) {
+        const categorySlug = pathSegments[0];
+        const category = categories.find(c => c.slug === categorySlug);
+        if (category) {
+            metadata = {
+                title: category.name || categorySlug,
+                author: "citrusLogs",
+                thumbnail: category.thumbnail
+            };
+        }
+    } 
+    else if (pathSegments.length >= 2) {
+        const categorySlug = pathSegments[0];
+        const postSlug = pathSegments[pathSegments.length - 1];
+        const post = allPosts.find(p => p.category === categorySlug && p.slug === postSlug);
+        if (post) {
+            metadata = {
+                title: post.title,
+                author: post.author,
+                thumbnail: post.thumbnail
+            };
+        }
     }
-    const categorySlug = pathSegments.length > 1 ? pathSegments[0] : null;
-    const postSlug = pathSegments[pathSegments.length - 1]; 
-    const { allPosts } = await getContentTree();
-    const postMetadata = allPosts.find(p => p.category === categorySlug && p.slug === postSlug);
-    if (!postMetadata) {
+    if (!metadata) {
         return res.status(404).json({ error: 'Content not found' });
     }
     let thumbnailUrl = `${baseUrl}/citruslogs_embed_banner.png`;
-    if (postMetadata.thumbnail) {
-        if (postMetadata.thumbnail.startsWith('http')) {
-            thumbnailUrl = postMetadata.thumbnail;
+    if (metadata.thumbnail && metadata.thumbnail !== '#') {
+        if (metadata.thumbnail.startsWith('http')) {
+            thumbnailUrl = metadata.thumbnail;
         } else {
-            thumbnailUrl = `${baseUrl}${postMetadata.thumbnail.startsWith('/') ? '' : '/'}${postMetadata.thumbnail}`;
+            thumbnailUrl = `${baseUrl}${metadata.thumbnail.startsWith('/') ? '' : '/'}${metadata.thumbnail}`;
         }
     }
     const oembedData = {
@@ -165,8 +190,8 @@ app.get('/api/oembed', async (req, res) => {
         cache_age: 86400,
         width: 800,
         height: 450,
-        title: postMetadata.title,                        
-        author_name: postMetadata.author || "citrusLogs", 
+        title: metadata.title,                        
+        author_name: metadata.author || "citrusLogs", 
         color: 16744448,
         author_url: baseUrl,             
         thumbnail_url: thumbnailUrl,
