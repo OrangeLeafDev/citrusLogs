@@ -1,6 +1,6 @@
 ---
 title: "[qylyp.net] nil's fine game review"
-date: 2022-11-22
+date: 2022-11-23T06:35:00
 thumbnail: /public/images/qylyp_nfg01.png
 category: random
 author: qylyppill
@@ -10,8 +10,10 @@ description: A backup of qylyppill's review on Nil's Fine Game
 The following is an excerpt from [qylyp.net](http://qylyp.net/writes/nfg/) on November 22nd, 2022 - 5:35 PM (GMT-5)
 * Archived by [orangeleaf36](https://orangeleaf36.dev)
 
-The legacy version of NFG is available in [archive.com](https://archive.org/download/NFG_legacy_demo/nfg.zip).
-A new version is being worked on by [DizzyAwe](https://www.youtube.com/@DizzyAwe).
+The legacy version of NFG is available here:
+* Windows - [archive.com](https://archive.org/download/NFG_legacy_demo/nfg.zip)
+- Linux - [Google Drive](https://drive.google.com/file/d/1KKW0nDDNRcvKc-6vrbkwcE2BWeFNH0pL/view?usp=sharing)
+A new version is being worked on by [DizzyAwe](https://www.youtube.com/@DizzyAwe), who also provided both archives.
 # Original Post
 For a while, I have been following this RPG called “Nil’s Fine Game”. A demo was released a few days ago, so I decided today was the perfect time to check it out! But what exactly is Nil’s Fine Game? On a scale of 1 to 10, how fine is it? Nil’s Fine Game is an action-RPG about a mentally ill child learning to communicate developed by tayN and his team. Said child also has to team up with his friend “She” (yes, the pronoun) to take down a false god, too. But first, you have to get some bread for your parents.
 
@@ -29,6 +31,6 @@ I ran into a couple of minor bugs while playing, like the one shown here, howeve
 
 ![](/public/images/qylyp_nfg04.png)
 
-Nil’s Fine Game is one with a lot of charm, passion, humour, and care and really shows what a few people can do when they put their minds to something. The demo is available for Windows and Macintosh systems, although I’d love to see a GUN/Linux version (please, I know Godot can do itz…). The demo is pretty lengthy and will roughly take you 30-45 minutes to complete. Nil’s Fine Game lives up to its name as being a truly fine game. Make sure to buy the full game when it releases!
+Nil’s Fine Game is one with a lot of charm, passion, humour, and care and really shows what a few people can do when they put their minds to something. The demo is available for Windows and Macintosh systems, although I’d love to see a [GUN/Linux version](https://drive.google.com/file/d/1KKW0nDDNRcvKc-6vrbkwcE2BWeFNH0pL/view?usp=sharing) (please, I know Godot can do itz…). The demo is pretty lengthy and will roughly take you 30-45 minutes to complete. Nil’s Fine Game lives up to its name as being a truly fine game. Make sure to buy the full game when it releases!
 
 ![](/public/images/qylyp_she.png)[GET NIL'S FINE GAME](https://archive.org/download/NFG_legacy_demo/nfg.zip)
