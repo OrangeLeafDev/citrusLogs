@@ -185,18 +185,18 @@ app.get('/api/oembed', async (req, res) => {
     const oembedData = {
         version: "1.0",
         type: "rich", 
-        provider_name: "citrusLogs", 
+        provider_name: "logs.ctrstree.cc", 
         provider_url: baseUrl, 
         cache_age: 86400,
         width: 800,
         height: 450,
         title: metadata.title,                        
-        author_name: metadata.author || "citrusLogs", 
+        //author_name: metadata.author || "citrusLogs", 
         color: 16744448,
-        author_url: baseUrl,             
+        //author_url: baseUrl,             
         thumbnail_url: thumbnailUrl,
-        thumbnail_width: 1200, 
-        thumbnail_height: 630
+        thumbnail_width: 1280, 
+        thumbnail_height: 768
     };
     res.json(oembedData);
 });
