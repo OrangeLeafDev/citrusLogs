@@ -135,3 +135,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 config.json
+
+# Ignore content and uploaded images
+content/
+public/images/
